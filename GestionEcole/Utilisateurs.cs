@@ -9,20 +9,28 @@ namespace GestionEcole
 {
     class Utilisateurs
     {
-        private static string username;
-        private static string password;
+        public static string username;
         private static short groupe_id;
 
         public static bool connect(string user,string pass) {
             if(Connection.connect()) {
-                SqlCommand sc = new SqlCommand("select * from Utilisateurs where username=@username and pasword =@password", Connection.SC);
+                SqlCommand sc = new SqlCommand("select username,groupe_id from Utilisateurs where username=@username and pasword =@password", Connection.SC);
                 sc.Parameters.AddWithValue("@username", user);
                 sc.Parameters.AddWithValue("@password",pass);
-                sc.ExecuteNonQuery();
+                SqlDataReader dr=  sc.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    while (dr.Read())
+                    {
+                        username=dr["username"].ToString();
+                        groupe_id=short.Parse(dr["groupe_id"].ToString());
+                        return true;
+                    }
+                }
 
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
     }
 }

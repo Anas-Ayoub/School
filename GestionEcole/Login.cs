@@ -19,10 +19,16 @@ namespace GestionEcole
 
         private void button1_Click(object sender, EventArgs e)
         {
-           if (Utilisateurs.connect(txtname.Text, txtpass.Text))
+            
+            /*if (Utilisateurs.connect(txtname.Text, txtpass.Text))
             {
-                MessageBox.Show("you are connected");
+
+                MessageBox.Show("you are connected"+Utilisateurs.username);
             }
+            else
+            {
+                MessageBox.Show("not exist");
+            }*/
         }
     }
 }
